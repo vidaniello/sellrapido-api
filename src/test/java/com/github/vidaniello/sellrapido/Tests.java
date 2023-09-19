@@ -2,6 +2,8 @@ package com.github.vidaniello.sellrapido;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class Tests {
@@ -24,10 +26,47 @@ public class Tests {
 	
 	private Logger log = LogManager.getLogger();
 	
+	private String apiKey;
+	
+	
+	@Before
+	public void beforeActions() {
+		apiKey = System.getProperty("sellrapido.apiKey");
+	}
+	
 	@Test
-	public void test1() {
+	public void testErrorSimulation() {
 		try {
 			
+			ApiClientSellrapido client = new ApiClientSellrapido(apiKey);
+			
+			try {
+				client.getOrders("wrong body");
+				throw new Exception("Expected exception");
+			} catch (SellrapidoException sellExc) {
+				Assert.assertTrue(sellExc.getErrorObject()!=null);
+			}
+			
+			try {
+				//wrong json request parameter
+				client.getOrders("{\"limit\": \"100\"}");
+				throw new Exception("Expected exception");
+			} catch (SellrapidoException sellExc) {
+				Assert.assertTrue(sellExc.getMessage().contains("wrong limit"));
+			}
+			
+			try {
+				//wrong api key
+				ApiClientSellrapido client2 = new ApiClientSellrapido("badKey");
+				client2.getOrders("{}");
+				throw new Exception("Expected exception");
+			} catch (SellrapidoException sellExc) {
+				Assert.assertTrue(sellExc.getMessage().contains("wrong api"));
+			}
+			
+			
+			
+			int i = 0;
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			throw new AssertionError(e);
