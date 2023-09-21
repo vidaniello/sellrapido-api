@@ -1,10 +1,16 @@
 package com.github.vidaniello.sellrapido;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.github.vidaniello.sellrapido.OrderSellrapido.STATUS;
+import com.google.gson.JsonObject;
 
 public class Tests {
 	
@@ -32,6 +38,67 @@ public class Tests {
 	@Before
 	public void beforeActions() {
 		apiKey = System.getProperty("sellrapido.apiKey");
+	}
+	
+	@Test
+	public void testUpdateOrder() {
+		try {
+			
+			ApiClientSellrapido client = new ApiClientSellrapido(apiKey);
+			/*
+			String orderCode = System.getProperty("sellrapido.orderCode");
+			
+			OrderRequest getOrdReq = new OrderRequest();
+			getOrdReq.code().add(orderCode);
+			
+			log.debug("Getting the order id by the order code given...");
+			
+			OrderResponse orderResp = client.getOrders(getOrdReq);
+			
+			OrderSellrapido order = orderResp.getOrders().iterator().next();
+			*/
+			Integer orderId = 4;//order.getHead().getId();
+			
+			/*
+			log.debug("The id of the order is: "+orderId);
+			log.debug("The status of the order is: "+order.getHead().getStatusEnum());
+			
+			log.debug("Try to change the status...");
+			*/
+			
+			OrderUpdateRequest our = 
+					new OrderUpdateRequest()
+					.id(orderId)
+					.status(STATUS.accepted.toString());
+			
+			Collection<OrderUpdateRequest> req = new ArrayList<>();
+			req.add(our);
+			
+			client.updateOrders(req);
+			
+			int i = 0;
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	@Test
+	public void testRequestOrders() {
+		try {
+			ApiClientSellrapido client = new ApiClientSellrapido(apiKey);
+			
+			OrderRequest getOrdReq = new OrderRequest();
+						
+			OrderResponse orderResp = client.getOrders(getOrdReq);
+			
+			Assert.assertTrue(orderResp.getTotalCount().equals(orderResp.getOrders().size()));
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
 	}
 	
 	@Test

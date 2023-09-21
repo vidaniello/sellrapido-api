@@ -1,6 +1,7 @@
 package com.github.vidaniello.sellrapido;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -14,6 +15,7 @@ public class ApiClientSellrapido {
 	
 	public static final String baseUrl = "https://app.sellrapido.com/sr_company_ws/api/";
 	public static final String orderUrl = "order/";
+	public static final String orderUpdateFinal = "/status";
 	
 	public static final MediaType applicationJson = MediaType.get("application/json");
 	
@@ -44,9 +46,18 @@ public class ApiClientSellrapido {
 	}
 	
 	
-	public Object getOrders(String jsonRequestBody) throws SellrapidoException, IOException {
+	
+	
+	public OrderResponse getOrders(OrderRequest orderRequest) throws SellrapidoException, IOException {
+		return getOrders(GsonUtility.getDefault().toJson(orderRequest));
+	}
+	
+	public OrderResponse getOrders(String orderRequestJson) throws SellrapidoException, IOException {
 		
-		RequestBody body = RequestBody.create(jsonRequestBody, applicationJson);
+		RequestBody body = RequestBody.create(
+				orderRequestJson, 
+				applicationJson
+			);
 		
 		Request req = new Request.Builder()
 				.url(baseUrl+orderUrl+getKey())
@@ -55,25 +66,60 @@ public class ApiClientSellrapido {
 		
 		Call call = getClient().newCall(req);
 		
-		try(Response resp = call.execute();){
-			try(ResponseBody rb = resp.body();){
-				
-				if(resp.code()>=200 && resp.code()<=299) {
-					
-					if(!rb.contentType().equals(applicationJson))
-						throw new SellrapidoException(rb.string());
-					
-					return rb.string();
-					
-				} else {
-										
-					if(!rb.contentType().equals(applicationJson))
-						throw new SellrapidoException(rb.string());
-					
-					throw new SellrapidoException(GsonUtility.getDefault().fromJson(rb.string(), SellrapidoErrorResponse.class));
-				}
-				
-			}
+		try(Response resp = call.execute();
+			ResponseBody rb = resp.body();){
+			
+			return GsonUtility.getDefault().fromJson(checkResponseBody(resp, rb),OrderResponse.class);
+		}
+	}
+	
+	
+	
+	
+	
+	public Collection<OrderUpdateResponse> updateOrders(Collection<OrderUpdateRequest> ordersUpdateRequest) throws SellrapidoException, IOException {
+		return updateOrders(GsonUtility.getDefault().toJson(ordersUpdateRequest));
+	}
+	
+	public Collection<OrderUpdateResponse> updateOrders(String ordersUpdateJson) throws SellrapidoException, IOException {
+		RequestBody body = RequestBody.create(
+				ordersUpdateJson, 
+				applicationJson
+			);
+		
+		Request req = new Request.Builder()
+				.url(baseUrl+orderUrl+getKey()+orderUpdateFinal)
+				.post(body)
+				.build();
+		
+		Call call = getClient().newCall(req);
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	private String checkResponseBody(Response resp, ResponseBody rb) throws SellrapidoException, IOException {
+		MediaType mtype = rb.contentType();
+		
+		if(resp.code()>=200 && resp.code()<=299) {
+			
+			if(! (mtype.type().equals(applicationJson.type()) && mtype.subtype().equals(applicationJson.subtype())) )
+				throw new SellrapidoException(rb.string());
+			
+			return rb.string();
+			
+		} else {
+								
+			if(! (mtype.type().equals(applicationJson.type()) && mtype.subtype().equals(applicationJson.subtype())) )
+				throw new SellrapidoException(rb.string());
+			
+			throw new SellrapidoException(GsonUtility.getDefault().fromJson(rb.string(), SellrapidoErrorResponse.class));
 		}
 	}
 

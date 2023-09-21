@@ -2,7 +2,7 @@
 
 Java library for custom integration with Sellrapido API services.
 
-### The sellrapido documentation
+## The sellrapido documentation
 
 [The wiki](https://wiki.sellrapido.com/en/knowledge/introduction-to-sellrapido)
 
@@ -10,10 +10,12 @@ Java library for custom integration with Sellrapido API services.
 
 [Product export API](https://wiki.sellrapido.com/en/knowledge/exporting-products-via-api)
 
-### Api key
+## Api key
 
 [See here](https://wiki.sellrapido.com/en/knowledge/orders-management#API-gen-feat) how request `api_key`
 
-### Initializate new client
+## How use it
 
-For test purpose, use propery var `-Dsellrapido.apiKey=[API_KEY]`.
+### Test
+
+For test purpose, use propery var `-Dsellrapido.apiKey=[API_KEY]` and a valid order code for testing update to orders, use `-Dsellrapido.orderCode=[ID_ORDER]`
