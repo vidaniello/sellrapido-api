@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.vidaniello.sellrapido.OrderSellrapido.STATUS;
 import com.google.gson.JsonObject;
 
 public class Tests {
@@ -45,7 +44,7 @@ public class Tests {
 		try {
 			
 			ApiClientSellrapido client = new ApiClientSellrapido(apiKey);
-			/*
+			
 			String orderCode = System.getProperty("sellrapido.orderCode");
 			
 			OrderRequest getOrdReq = new OrderRequest();
@@ -56,15 +55,16 @@ public class Tests {
 			OrderResponse orderResp = client.getOrders(getOrdReq);
 			
 			OrderSellrapido order = orderResp.getOrders().iterator().next();
-			*/
-			Integer orderId = 4;//order.getHead().getId();
 			
-			/*
+			Integer orderId = order.getHead().getId();
+			
+			STATUS startingStatus = order.getHead().getStatusEnum();
+			
 			log.debug("The id of the order is: "+orderId);
+			log.debug("Starting status is: "+startingStatus);
 			log.debug("The status of the order is: "+order.getHead().getStatusEnum());
 			
 			log.debug("Try to change the status...");
-			*/
 			
 			OrderUpdateRequest our = 
 					new OrderUpdateRequest()
@@ -74,9 +74,63 @@ public class Tests {
 			Collection<OrderUpdateRequest> req = new ArrayList<>();
 			req.add(our);
 			
-			client.updateOrders(req);
+			Collection<OrderUpdateResponse> resp = client.updateOrders(req);
 			
-			int i = 0;
+			Assert.assertTrue(resp.isEmpty());
+			
+			log.debug("Checking the now status...");
+			
+			orderResp = client.getOrders(getOrdReq);
+			
+			order = orderResp.getOrders().iterator().next();
+			
+			STATUS nowStatus = order.getHead().getStatusEnum();
+			
+			Assert.assertTrue(STATUS.accepted.equals(nowStatus));
+			
+			log.debug("New status is: "+nowStatus);
+			
+			log.debug("Update back to starting status: "+startingStatus);
+			
+			our.status(startingStatus);
+			
+			resp = client.updateOrders(req);
+			
+			Assert.assertTrue(resp.isEmpty());
+			
+			log.debug("Checking the now status...");
+			
+			orderResp = client.getOrders(getOrdReq);
+			
+			order = orderResp.getOrders().iterator().next();
+			
+			nowStatus = order.getHead().getStatusEnum();
+			
+			Assert.assertTrue(startingStatus.equals(nowStatus));
+			
+			log.debug("New status is: "+nowStatus);
+			
+			log.debug("Testing wrong updates...");
+			
+			req.clear();
+			
+			our = 	new OrderUpdateRequest()
+					.id(-233214568)
+					.status(STATUS.accepted.toString());
+			
+			req.add(our);
+			
+			our = 	new OrderUpdateRequest()
+					.id(-233214569)
+					.status(STATUS.accepted.toString());
+			
+			req.add(our);
+			
+			resp = client.updateOrders(req);
+			
+			Assert.assertTrue(resp.size()==2);
+			
+			log.debug("Testing wrong updates ok!");
 			
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

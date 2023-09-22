@@ -1,7 +1,10 @@
 package com.github.vidaniello.sellrapido;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Collection;
+
+import com.google.gson.reflect.TypeToken;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -94,7 +97,14 @@ public class ApiClientSellrapido {
 		
 		Call call = getClient().newCall(req);
 		
-		return null;
+		try(Response resp = call.execute();
+				ResponseBody rb = resp.body();){
+			
+				Type listType = new TypeToken<Collection<OrderUpdateResponse>>(){}.getType();	
+			
+				return GsonUtility.getDefault().fromJson(checkResponseBody(resp, rb), listType);
+			}
+		
 	}
 	
 	

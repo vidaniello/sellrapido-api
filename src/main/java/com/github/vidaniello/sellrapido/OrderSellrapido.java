@@ -11,8 +11,6 @@ public class OrderSellrapido implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public enum STATUS{standby,accepted,sent,cancelled,not_specified}
 	
 	private Head head;
 	private Collection<Row> rows;
@@ -153,27 +151,11 @@ public class OrderSellrapido implements Serializable {
 		}
 
 		public STATUS getStatusEnum() {
-			if(getStatus()!=null)
-				if(!getStatus().isEmpty())
-					try {
-						return STATUS.valueOf(getStatus());
-					} catch (IllegalArgumentException e) {
-						return STATUS.not_specified;
-					}
-			return STATUS.not_specified;
-					
+			return STATUS.parse(getStatus());
 		}
 		
 		public STATUS getStatusOldEnum() {
-			if(getStatus_old()!=null)
-				if(!getStatus_old().isEmpty())
-					try {
-						return STATUS.valueOf(getStatus_old());
-					} catch (IllegalArgumentException e) {
-						return STATUS.not_specified;
-					}
-			return STATUS.not_specified;
-					
+			return STATUS.parse(getStatus_old());					
 		}
 		
 		public Integer getId() {

@@ -28,6 +28,11 @@ public class OrderUpdateRequest implements Serializable {
 		this.id = id;
 		this.status = status;
 	}
+	
+	public OrderUpdateRequest(Integer id, STATUS status) {
+		this.id = id;
+		this.status = status.name();
+	}
 
 	public Integer getId() {
 		return id;
@@ -41,9 +46,18 @@ public class OrderUpdateRequest implements Serializable {
 	public String getStatus() {
 		return status;
 	}
+	
+	public STATUS getStatusEnum() {
+		return STATUS.parse(getStatus());
+	}
 
 	public OrderUpdateRequest status(String status) {
 		this.status = status;
+		return this;
+	}
+	
+	public OrderUpdateRequest status(STATUS status) {
+		status(status.toString());
 		return this;
 	}
 
