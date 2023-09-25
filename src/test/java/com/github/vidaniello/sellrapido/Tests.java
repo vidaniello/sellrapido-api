@@ -114,15 +114,15 @@ public class Tests {
 			
 			req.clear();
 			
-			our = 	new OrderUpdateRequest()
-					.id(-233214568)
-					.status(STATUS.accepted.toString());
+			our = new OrderUpdateRequest()
+				  .id(-233214568)
+				  .status(STATUS.accepted.toString());
 			
 			req.add(our);
 			
-			our = 	new OrderUpdateRequest()
-					.id(-233214569)
-					.status(STATUS.accepted.toString());
+			our = new OrderUpdateRequest()
+				  .id(-233214569)
+				  .status(STATUS.accepted.toString());
 			
 			req.add(our);
 			
