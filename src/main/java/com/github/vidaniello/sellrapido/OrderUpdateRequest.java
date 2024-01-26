@@ -3,7 +3,7 @@ package com.github.vidaniello.sellrapido;
 import java.io.Serializable;
 import java.util.Date;
 
-public class OrderUpdateRequest implements Serializable {
+public class OrderUpdateRequest extends ReflectionUtilities implements Serializable {
 
 	/**
 	 * 

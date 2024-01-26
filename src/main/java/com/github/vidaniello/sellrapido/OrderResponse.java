@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class OrderResponse implements Serializable {
+public class OrderResponse extends ReflectionUtilities implements Serializable {
 
 	/**
 	 * 

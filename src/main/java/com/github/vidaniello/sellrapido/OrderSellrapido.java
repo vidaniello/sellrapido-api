@@ -1,6 +1,7 @@
 package com.github.vidaniello.sellrapido;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class OrderSellrapido implements Serializable {
 
 
 
-	public class Head implements Serializable{
+	public class Head extends ReflectionUtilities implements Serializable{
 		
 		/**
 		 * 
@@ -949,11 +950,10 @@ public class OrderSellrapido implements Serializable {
 		public void setTags_label(String tags_label) {
 			this.tags_label = tags_label;
 		}
-		
-		
+				
 	}
 
-	public class MarketplacePaymentInfo implements Serializable {
+	public class MarketplacePaymentInfo extends ReflectionUtilities implements Serializable {
 
 		/**
 		 * 
@@ -965,7 +965,7 @@ public class OrderSellrapido implements Serializable {
 		}
 	}
 
-	public class BillingInfo implements Serializable {
+	public class BillingInfo extends ReflectionUtilities implements Serializable {
 
 		/**
 		 * 
@@ -977,7 +977,7 @@ public class OrderSellrapido implements Serializable {
 		}
 	}
 
-	public class CourierInfo implements Serializable{
+	public class CourierInfo extends ReflectionUtilities implements Serializable{
 		
 		/**
 		 * 
@@ -1046,7 +1046,7 @@ public class OrderSellrapido implements Serializable {
 		
 	}
 
-	public class DriverInfo implements Serializable{
+	public class DriverInfo extends ReflectionUtilities implements Serializable{
 
 		/**
 		 * 
@@ -1059,7 +1059,7 @@ public class OrderSellrapido implements Serializable {
 		
 	}
 
-	public class Feedbacks implements Serializable{
+	public class Feedbacks extends ReflectionUtilities implements Serializable{
 
 		/**
 		 * 
@@ -1072,7 +1072,7 @@ public class OrderSellrapido implements Serializable {
 		
 	}
 
-	public class Row implements Serializable{
+	public class Row extends ReflectionUtilities implements Serializable{
 		
 		/**
 		 * 
@@ -1537,7 +1537,7 @@ public class OrderSellrapido implements Serializable {
 		
 	}
 
-	public class ProductInfo implements Serializable{
+	public class ProductInfo extends ReflectionUtilities implements Serializable{
 
 		/**
 		 * 

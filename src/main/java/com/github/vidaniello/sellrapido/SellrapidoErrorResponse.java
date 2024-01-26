@@ -3,7 +3,7 @@ package com.github.vidaniello.sellrapido;
 import java.io.Serializable;
 import java.util.Collection;
 
-public class SellrapidoErrorResponse implements Serializable {
+public class SellrapidoErrorResponse extends ReflectionUtilities implements Serializable {
 
 	/**
 	 * 

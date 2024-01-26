@@ -16,7 +16,7 @@ import java.util.Date;
  * @author Vincenzo D'Aniello (vidaniello@gmail.com) github.com/vidaniello
  *
  */
-public class OrderRequest implements Serializable {
+public class OrderRequest extends ReflectionUtilities implements Serializable {
 
 	public static final String orderRequestDatePattern = "yyyy-MM-dd";
 

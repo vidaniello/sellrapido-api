@@ -2,7 +2,7 @@ package com.github.vidaniello.sellrapido;
 
 import java.io.Serializable;
 
-public class OrderUpdateResponse implements Serializable {
+public class OrderUpdateResponse extends ReflectionUtilities implements Serializable {
 
 	/**
 	 * 
