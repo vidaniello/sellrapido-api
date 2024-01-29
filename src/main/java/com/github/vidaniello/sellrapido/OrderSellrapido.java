@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-public class OrderSellrapido implements Serializable {
+public class OrderSellrapido extends ReflectionUtilities implements Serializable {
 
 	/**
 	 * 

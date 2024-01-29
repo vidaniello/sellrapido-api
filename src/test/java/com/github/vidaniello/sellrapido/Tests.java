@@ -40,6 +40,27 @@ public class Tests {
 	}
 	
 	@Test
+	public void testReflections() {
+		try {
+			
+			//MOCK
+			OrderSellrapido ord = new OrderSellrapido();
+			ord.setHead(ord.new Head());
+			ord.getHead().setCode("test_code");
+			
+			ord.getHead().setCourier_info(ord.new CourierInfo());
+			ord.getHead().getCourier_info().setTracking_url("Tracking url");
+			
+			Assert.assertTrue(ord.getField("head.code").equals("test_code"));
+			Assert.assertTrue(ord.getField("head.courier_info.tracking_url").equals("Tracking url"));
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	@Test
 	public void testUpdateOrder() {
 		try {
 			
