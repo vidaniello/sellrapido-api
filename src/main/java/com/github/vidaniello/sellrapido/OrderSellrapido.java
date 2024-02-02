@@ -1544,6 +1544,81 @@ public class OrderSellrapido extends ReflectionUtilities implements Serializable
 		 */
 		private static final long serialVersionUID = 1L;
 		
+	    public Object fieldConstraints;
+	    public int product_id;
+	    public int catalog_id;
+	    public String catalog_code;
+	    public String catalog_name;
+	    public String sku;
+	    public Object sku_noprefix;
+	    public String ean;
+	    public String mpn;
+	    public String isbn;
+	    public String brand;
+	    public String catalog_category1;
+	    public String catalog_category2;
+	    public String catalog_category3;
+	    public String url_image1;
+	    public double price1;
+	    public double price_shipping1;
+	    public double vat_perc;
+	    public Object sku_variation;
+	    public String ean_variation;
+	    public String warehouse;
+	    public int on_demand_days;
+	    public boolean on_demand;
+	    public String extra1;
+	    public String extra2;
+	    public String extra3;
+	    public String extra4;
+	    public String extra5;
+	    public String extra6;
+	    public String extra7;
+	    public String extra8;
+	    public String extra9;
+	    public double price2;
+	    public double price3;
+	    public double price4;
+	    public double price5;
+	    public double price6;
+	    public double price_shipping2;
+	    public double price_shipping3;
+	    public double price_shipping4;
+	    public double price_shipping5;
+	    public double price_shipping6;
+	    public double price_cost;
+	    public ArrayList<Object> variations;
+	    public Compatibility compatibility;
+	    public Object attributes;
+	    public ListingFees listingFees;
+	    public String condition_code;
+	    public String condition_description;
+	    public String supplier_sku_prefix;
+	    public boolean repricing;
+	    public Object no_repricing_price;
+	    public double lowest_price;
+	    public double quantity;
+	    public boolean is_sro;
+	    public double listing_price;
+	    public double listing_price_noshipping;
+	    public double listing_price_shipping1;
+	    public double listing_priceB2B;
+		
 	}
+	
+	public class Compatibility{
+		
+	}
+	
+	public class ListingFees{
+	    public Object fieldConstraints;
+	    public double marketplace_fee;
+	    public double shipping_price;
+	    public double shipping_cost;
+	    public double fee_additional;
+	    public double paypal_fee;
+	}
+	
+	
 
 }
