@@ -51,4 +51,34 @@ public abstract class ReflectionUtilities {
 	}
 	
 	
+	public static String getField(Object obj, String fieldName) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		
+		boolean nestedObject = false;
+		String fildN = fieldName;
+		String remainFiled = "";
+		
+		if(fieldName.contains(".")) {
+			nestedObject = true;
+			fildN = fieldName.substring(0, fieldName.indexOf("."));
+			remainFiled = fieldName.substring(fieldName.indexOf(".")+1);
+		}
+		
+		Field field = obj.getClass().getDeclaredField(fildN);
+
+		if(field!=null) {
+			field.setAccessible(true);
+			
+			if(nestedObject) {
+				
+				Object rui = field.get(obj);
+				
+				return getField(rui, remainFiled);
+				
+			} else				
+				return field.get(obj).toString();
+		}
+						
+		return "";
+	}
+	
 }
