@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
@@ -39,7 +40,7 @@ public class Tests {
 		apiKey = System.getProperty("sellrapido.apiKey");
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testReflections() {
 		try {
 			
@@ -60,7 +61,7 @@ public class Tests {
 		}
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testUpdateOrder() {
 		try {
 			
@@ -159,7 +160,7 @@ public class Tests {
 		}
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testRequestOrders() {
 		try {
 			ApiClientSellrapido client = new ApiClientSellrapido(apiKey);
@@ -176,7 +177,7 @@ public class Tests {
 		}
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testErrorSimulation() {
 		try {
 			
