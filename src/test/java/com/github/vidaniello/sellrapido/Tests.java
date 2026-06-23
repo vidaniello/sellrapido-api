@@ -40,7 +40,8 @@ public class Tests {
 		apiKey = System.getProperty("sellrapido.apiKey");
 	}
 	
-	@Test @Ignore
+	@Test 
+	//@Ignore
 	public void testReflections() {
 		try {
 			
@@ -70,7 +71,7 @@ public class Tests {
 			String orderCode = System.getProperty("sellrapido.orderCode");
 			
 			OrderRequest getOrdReq = new OrderRequest();
-			getOrdReq.code().add(orderCode);
+			getOrdReq.getCode().add(orderCode);
 			
 			log.debug("Getting the order id by the order code given...");
 			
