@@ -107,6 +107,8 @@ public class OrderRequest extends ReflectionUtilities implements Serializable {
 	}
 
 	public Date getStartDate() throws ParseException {
+		if(startDate==null)
+			return null;
 		return new SimpleDateFormat(orderRequestDatePattern).parse(startDate);
 	}
 
@@ -116,6 +118,8 @@ public class OrderRequest extends ReflectionUtilities implements Serializable {
 	}
 
 	public Date getEndDate() throws ParseException {
+		if(endDate==null)
+			return null;
 		return new SimpleDateFormat(orderRequestDatePattern).parse(endDate);
 	}
 
@@ -125,6 +129,8 @@ public class OrderRequest extends ReflectionUtilities implements Serializable {
 	}
 
 	public Date getStartModified() throws ParseException {
+		if(startModified==null)
+			return null;
 		return new SimpleDateFormat(orderRequestDatePattern).parse(startModified);
 	}
 
@@ -134,6 +140,8 @@ public class OrderRequest extends ReflectionUtilities implements Serializable {
 	}
 
 	public Date getEndModified() throws ParseException {
+		if(endModified==null)
+			return null;
 		return new SimpleDateFormat(orderRequestDatePattern).parse(endModified);
 	}
 
@@ -142,7 +150,7 @@ public class OrderRequest extends ReflectionUtilities implements Serializable {
 		return this;
 	}
 
-	public Collection<String> code() {
+	public Collection<String> getCode() {
 		if (code == null)
 			code = new ArrayList<>();
 		return code;
@@ -207,7 +215,7 @@ public class OrderRequest extends ReflectionUtilities implements Serializable {
 		return this;
 	}
 
-	public Collection<String> tags() {
+	public Collection<String> getTags() {
 		if (tags == null)
 			tags = new ArrayList<>();
 		return tags;
